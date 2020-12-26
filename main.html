@@ -26,26 +26,64 @@
       <h1 id="info">请登陆！</h1>
     </div>
     <div align="center">
-      <img src="public/img/img-test/1.jpeg">
-      <img src="public/img/img-test/2.jpeg">
+      <img data-src="public/img/img-test/1.jpeg">
+      <img data-src="public/img/img-test/2.jpeg">
+      <img data-src="public/img/img-test/3.jpeg">
+      <img data-src="public/img/img-test/4.jpeg">
+      <img data-src="public/img/img-test/5.jpeg">
+      <img data-src="public/img/img-test/6.jpeg">
+      <img data-src="public/img/img-test/7.jpeg">
+      <img data-src="public/img/img-test/8.jpeg">
+      <img data-src="public/img/img-test/9.jpeg">
+      <img data-src="public/img/img-test/10.jpeg">
     </div>
+    <script src="public/js/jquery.min.js"></script>
     <script>
-        var name =  getUrlParameter('name');
-        console.log(name);
-        if(name != ""){
-          document.getElementById("info").innerHTML = "当前登陆的账号为：" + name;
+      function getTop(e) {
+        var T = e.offsetTop;
+        e = e.offsetParent;
+        while(e) {
+          T += e.offsetTop;
+          e = e.offsetParent;
         }
+        return T;
+      }
 
-        function getUrlParameter(name){
-          name = name.replace(/[]/,"\[").replace(/[]/,"\[").replace(/[]/,"\\\]");
-          var regexS = "[\\?&]"+name+"=([^&#]*)";
-          var regex = new RegExp( regexS );
-          var results = regex.exec(window.parent.location.href );
-          if( results == null ) return ""; 
-          else {
-              return results[1];
+      function lazyLoad(imgs) {
+          var H = document.documentElement.clientHeight;//获取可视区域高度
+          var S = document.documentElement.scrollTop || document.body.scrollTop;
+          for (var i = 0; i < imgs.length; i++) {
+              if (H + S > getTop(imgs[i])) {
+                if(! imgs[i].src){
+                  console.log("Iamge "+ (i + 1).toString() + " is loaded.")
+                  imgs[i].src = imgs[i].getAttribute('data-src');
+                }
+              }
           }
-        };
+      }
+
+      var name =  getUrlParameter('name');
+      console.log(name);
+      if(name != ""){
+        document.getElementById("info").innerHTML = "当前登陆的账号为：" + name;
+      }
+
+      function getUrlParameter(name){
+        name = name.replace(/[]/,"\[").replace(/[]/,"\[").replace(/[]/,"\\\]");
+        var regexS = "[\\?&]"+name+"=([^&#]*)";
+        var regex = new RegExp( regexS );
+        var results = regex.exec(window.parent.location.href );
+        if( results == null ) return ""; 
+        else {
+            return results[1];
+        }
+      };
+
+      var imgs = document.querySelectorAll('img');
+
+      window.onload = window.onscroll = function () { //onscroll()在滚动条滚动的时候触发
+          lazyLoad(imgs);
+      }
     </script>
   </body>
 </html>
