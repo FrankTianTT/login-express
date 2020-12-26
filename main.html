@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>主页</title>
+    <link rel="stylesheet" href="public/css/comm.css" />
+  </head>
+  <body background='public/img/background.jpg'>
+    <div id="nav">
+      <ul>
+        <li>
+          <a href="main.html">主页</a>
+        </li>
+        <li>
+          <a href="login.html">登录</a>
+        </li>
+        <li>
+          <a href="register.html">注册</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrapper">
+      <h1>欢迎使用NJU-SE-Web系统</h1>
+      <h1 id="info">请登陆！</h1>
+    </div>
+    <script>
+        var name =  getUrlParameter('name');
+        console.log(name);
+        if(name != ""){
+          document.getElementById("info").innerHTML = "当前登陆的账号为：" + name;
+        }
+
+        function getUrlParameter(name){
+          name = name.replace(/[]/,"\[").replace(/[]/,"\[").replace(/[]/,"\\\]");
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var results = regex.exec(window.parent.location.href );
+          if( results == null ) return ""; 
+          else {
+              return results[1];
+          }
+        };
+    </script>
+  </body>
+</html>
